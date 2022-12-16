@@ -9,6 +9,11 @@ const empRoutes = require("./routes/add-user");
 const empAttendance=require("./routes/emp-attendance");
 
 const empAuthRoutes = require("./routes/auth-user");
+const empLeave = require("./routes/leave")
+
+
+
+
 var session = require('express-session')
 const cookieParser = require("cookie-parser");
 
@@ -40,7 +45,10 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/adduser", empRoutes);
 app.use("/api/authuser", empAuthRoutes);
+
+//Employee Routes
 app.use("/api/attendance",empAttendance)
+app.use("/api/leave",empLeave)
 
 const port = process.env.PORT || 8080;
 app.listen(port, console.log(`Listening on port ${port}...`));

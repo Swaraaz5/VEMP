@@ -15,11 +15,15 @@ import Cookie from 'js-cookie'
 import LayoutEmp from "./components/User/Layout";
 import UserSignUp from "./components/User/UserSignUp";
 import DashboardEmp from "./components/User/Dashboard";
-import LeaveTrackerEmp from "./components/User/LeaveTracker";
-// import { useEffect } from "react";
+
+
 import PageNotFound from "./components/PageNotFound";
 import { useEffect } from "react";
+
+
 import Attendance from "./components/User/Attendance";
+import LeaveTrackerEmp from "./components/User/LeaveTracker";
+import LeaveDetails from "./components/User/LeaveDetails";
 
 
 
@@ -50,13 +54,15 @@ function App() {
           <Route exact path="/all-user" element={<AllUserDetails />} />
           <Route exact path="/all-leaves" element={<AllLeaveDetails />} />
           <Route exact path="/all-holidays" element={<AllHolidaysDetails />} />
+
         </Route>
       {/* } */}
 
         {/* {(AcessControl && AcessControl === 'EMployeeAccess') &&  */}
           <Route path="/emp" element={<LayoutEmp />}>
             <Route index path="/emp/dashboard-emp" element={<DashboardEmp />}  />
-            <Route exact path="/emp/leave-tracker-emp" element={<LeaveTrackerEmp />} />
+            <Route exact path="/emp/leave-all" element={ <LeaveDetails/> }  />
+            <Route exact path="/emp/leave-tracker-emp" element={<LeaveTrackerEmp/>} />
             <Route exact path="/emp/attendance-emp" element={<Attendance />} />
 
           </Route>
