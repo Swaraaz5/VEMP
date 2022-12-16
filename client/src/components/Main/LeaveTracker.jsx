@@ -1,22 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from "axios";
+import ls from "localstorage-slim";
+import { useNavigate } from "react-router-dom";
 
 const LeaveTracker = () => {
+  const navigate = useNavigate();
 
-  const [projectinfo,setProjectInfo]=useState({
-    project_name:"",
-    project_category:"",
-    client_email:"",
-    contact_number:"",
-    site_address:"",
-    project_description:"",
-    estimated_start_date:"",
-    estimated_end_date:"",
-    status:""
-  });
+  const userID = ls.get("empID");
 
-  const onInputChange = (e) => {
-    setProjectInfo({ ...projectinfo, [e.target.name]: e.target.value })
-}
+
+
+  const [allLeaveDetails,setAllLeaveDetails]=useState([]);
+
+  useEffect(() => {
+    axios
+    .get(`http://localhost:8080/api/leave/leaveall`)
+    .then((res) => {
+        setAllLeaveDetails(res.data);
+    });
+  }, [])
 
 
 const onModalFormSubmit=(e)=>
@@ -27,81 +29,75 @@ const onModalFormSubmit=(e)=>
 
   return (
     <div>
-                  <form  onSubmit={onModalFormSubmit}>
-           <div class="mb-3 row">
-            <label for="staticName" class="col-sm-2 col-form-label">Project Name :</label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text" name="project_name" placeholder="Enter Project Name" aria-label="default input example" 
-              onChange={onInputChange}/>
-            </div>
-          </div>
-          {/* <div class="mb-3 row">
-            <label for="staticName" class="col-sm-2 col-form-label">Project Category: </label>
-            <div class="col-sm-10">
-              <select className='form-control' name="project_category" required onChange={onInputChange}>
-                <option>Select</option>
-                  {projectcat === undefined ? [] : projectcat.map((project) => (
-                   <option value={project.id} key={project.id}>{project.project_category}</option>
-                 ))}
-               </select>
-            </div>
-          </div> */}
-          <div class="mb-3 row">
-            <label for="staticName" class="col-sm-2 col-form-label">Email Id: </label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text" name="client_email" placeholder="Enter Client's Email Id" aria-label="default input example" 
-               onChange={onInputChange}/>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="staticName" class="col-sm-2 col-form-label">Contact Number: </label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text" name="contact_number" placeholder="Enter Client's Contact Number" aria-label="default input example"
-                onChange={onInputChange}/>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="staticName" class="col-sm-2 col-form-label">Site Address: </label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text" name="site_address" placeholder="Enter Client's Address" aria-label="default input example" 
-               onChange={onInputChange}/>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="staticName" class="col-sm-2 col-form-label">Estimated Start date: </label>
-            <div class="col-sm-3">
-              <input type="date" class="form-control" name="estimated_start_date" placeholder="Last name" aria-label="Last name"
-               onChange={onInputChange} id="start" />
-            </div>
-            <label for="staticName" class="col-sm-3  col-form-label" style={{ marginLeft: '5px' }}>Estimated end date: </label>
-            <div class="col-sm-3">
-              <input type="date" name="estimated_end_date" class="form-control" placeholder="Last name" aria-label="Last name" 
-               onChange={onInputChange} id="end" />
-            </div>
-          </div>
-          
-          <div class="mb-3 row">
-            <label for="staticName" class="col-sm-2 col-form-label">Description :</label>
-            <div class="col-sm-10">
-              <textarea class="form-control" type="text" name="project_description" placeholder="Project Description" aria-label="default input example" rows="3"
-               onChange={onInputChange}/>
-            </div>
-          </div>
-          {/* <div style={{textAlign:'center'}}>
-              <button type="submit" className="btn btn-primary">Submit</button>
-          </div> */}
 
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Add Employee
-            </button>
-          </div>
-          </form>
+    <div class="overflow-x-auto relative shadow-md sm:rounded-lg md:mx-16 mt-5">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="py-3 px-6">
+              Employee Name
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Leave Type
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Reason
+            </th>
+            <th scope="col" class="py-3 px-6">
+              From
+            </th>
+            <th scope="col" class="py-3 px-6">
+              To
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Status
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {allLeaveDetails.map((leavedetails, key) => (
+            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={leavedetails._id}>
+              <th
+                scope="row"
+                className="capitalize py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                {leavedetails.empdetails.firstname} {leavedetails.empdetails.lastname}
+              </th>
+              <th className="py-4 px-6">{leavedetails.leavetype}</th>
+              <td className="py-4 px-6">{leavedetails.reason}</td>
+              <td className="py-4 px-6">
+                  {new Date(leavedetails.fromdate).getDate()}-
+                  {new Date(leavedetails.fromdate).getMonth()+1}-
+                  {new Date(leavedetails.fromdate).getFullYear()}
+                  </td>
+              <td className="py-4 px-6">
+              {new Date(leavedetails.todate).getDate()}-
+                  {new Date(leavedetails.todate).getMonth()+1}-
+                  {new Date(leavedetails.todate).getFullYear()}
+              </td>
 
+              <td className="py-4 px-6 ">
+                  <p className={leavedetails.status==='approved'?"capitalize w-24 focus:outline-none text-white bg-green-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2":"capitalize w-24 focus:outline-none text-white bg-red-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"}>
+                      {leavedetails.status}
+                  </p>
+              </td>
+
+              <td>
+
+              <button type="button" class="text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-500 dark:focus:ring-green-800">Approve</button>
+
+
+              <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
+  </div>
   )
 }
 

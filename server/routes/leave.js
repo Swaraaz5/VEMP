@@ -1,6 +1,43 @@
 const router = require("express").Router();
 const { Emp } = require("../models/leave");
 
+router.get("/leaveall",async(req,res)=>{  
+  try {
+    const leavedata= await Emp.aggregate([
+      {
+          $lookup:
+              {
+                  from: "empdetails",
+                  let: { pid: "$userid" },
+                  pipeline: [
+                      {
+                          $match: {
+                              $expr: {
+                                  $eq: ["$_id", { $toObjectId: "$$pid" }]
+                              }
+                          }
+                      }
+                  ],
+                  as: "empdetails"
+              }
+      },
+      {
+          $set: {
+            empdetails: {
+                  $arrayElemAt: ["$empdetails", 0]
+              }
+          }
+      }
+  ])
+      console.log("Leave Data => ",leavedata);
+    res.status(201).json(leavedata)
+  } 
+
+  catch (error) {
+    res.status(500).send({message:error.message})
+  }
+})
+
 router.get("/read/:id",async(req,res)=>{
   
       try {
