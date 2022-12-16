@@ -1,6 +1,64 @@
 const router = require("express").Router();
 const {Emp} = require("../models/emp-attendance")
 
+//Read All Check In and Check Out records By ID
+router.get("/read/:id",async(req,res)=>{
+  
+  try {
+    const attendance=await Emp.find(
+      {userid:req.params.id},
+      {} //This send data in JSON Format
+      ).sort({Date:-1});
+      
+      console.log("Data data data astdadasd "+attendance);
+    res.status(201).json(attendance)
+  } catch (error) {
+    res.status(500).send({message:error.message})
+  }
+})
+
+//Read If user checkin record is present in table or not
+router.get("/read/checkin/:id",async(req,res)=>{
+  try {
+    var dateObj = new Date();
+    var month = dateObj.getUTCMonth() + 1; 
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    
+    newdate = day + "/" + month + "/" + year;
+
+    const attendancecheckin=await Emp.find({userid:req.params.id,date:newdate},
+      {}
+      );
+    res.status(201).json(attendancecheckin);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+})
+
+
+
+//Read If user checkout record is present in table or not
+router.get("/read/checkout/:id",async(req,res)=>{
+  try {
+    var dateObj = new Date();
+    var month = dateObj.getUTCMonth() + 1; 
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    
+    newdate = day + "/" + month + "/" + year;
+
+    const attendancecheckout=await Emp.find({userid:req.params.id,date:newdate,checkouttime:null},
+      {}
+      );
+    res.status(201).json(attendancecheckout);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+})
+
+
+
 router.post("/", async (req, res) => {
   try {
     var dateObj = new Date();
@@ -39,6 +97,15 @@ router.post("/", async (req, res) => {
 router.post("/checkout/:id", async (req, res) => {
   try {
 
+
+    var dateObj = new Date();
+    var month = dateObj.getUTCMonth() + 1; //months from 1-12
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    
+    newdate = day + "/" + month + "/" + year;
+
+
     var dateObj = new Date();
     var hours = dateObj.getHours();
     var minutes = dateObj.getMinutes();
@@ -52,7 +119,7 @@ router.post("/checkout/:id", async (req, res) => {
 
     var strTime = hours + ':' + minutes + ':' + seconds ;
 
-		await Emp.updateOne({userid:req.params.id},{checkouttime:strTime});
+		await Emp.updateOne({userid:req.params.id,date:newdate},{checkouttime:strTime});
 
     res.status(201).send({ message: "Checked Out Successfully" });
   } catch (error) {
