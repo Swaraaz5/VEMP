@@ -77,7 +77,14 @@ function LeaveDetails() {
                 </td>
 
                 <td className="py-4 px-6 ">
-                    <p className={leavedetails.status==='rejected'?"capitalize w-24 focus:outline-none text-white bg-green-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2":"capitalize w-24 focus:outline-none text-white bg-red-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"}>
+                    <p 
+                           className={
+                            leavedetails.status === "pending"
+                              ? "capitalize w-24 focus:outline-none text-white bg-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2": 
+                              leavedetails.status==="approved"?"capitalize w-24 focus:outline-none text-white bg-approved font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2":
+                              leavedetails.status === "rejected"?"capitalize w-24 focus:outline-none text-white bg-red-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2":' '
+                      }
+                    >
                         {leavedetails.status}
                     </p>
                 </td>

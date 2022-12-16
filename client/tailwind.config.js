@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     colors:{
       veloceblue:'#41a5da',
+      approved:'#13EF4B',
     },
     extend: {},
   },
