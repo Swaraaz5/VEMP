@@ -8,7 +8,7 @@ function UserProfileSettings() {
     <>
       <div className="m-auto  md:px-40 ">
         <form onSubmit={onFormSubmit}>
-          <div className="block p-5 rounded-lg shadow-lg bg-red-500 max-w-xl m-auto content-center text-center">
+          <div className="block p-5 rounded-lg shadow-lg bg-white max-w-xl m-auto content-center text-center">
 
             <div className="bg-blue-300 mx-56 h-20 flex justify-center items-center text-center mb-3">
                 Hello
@@ -18,7 +18,7 @@ function UserProfileSettings() {
                <p className="text-2xl"> Swaraj Purekar </p>
             </div>
 
-              <div className="flex form-group mb-3 items-center justify-center bg-yellow-300">
+              <div className="flex form-group mb-3 items-center justify-center">
                 <label>Date of Birth :</label> 
                 <input
                   type="text"
@@ -43,7 +43,7 @@ function UserProfileSettings() {
                 />
               </div>
 
-              <div className="flex form-group mb-3 items-center justify-center bg-yellow-300">
+              <div className="flex form-group mb-3 items-center justify-center">
                 <label>Gender :</label> 
                 <input
                   type="text"
@@ -69,7 +69,7 @@ function UserProfileSettings() {
                 />
               </div>
 
-              <div className="flex form-group mb-3 items-center justify-center bg-yellow-300">
+              <div className="flex form-group mb-3 items-center justify-center">
                 <label>Address :</label> 
 
                <textarea
@@ -100,7 +100,7 @@ function UserProfileSettings() {
                 />
               </div>
 
-              <div className="flex form-group mb-3 items-center justify-center bg-yellow-300">
+              <div className="flex form-group mb-3 items-center justify-center">
                 <label>Mobile No :</label> 
                 <input
                   type="text"
@@ -126,7 +126,7 @@ function UserProfileSettings() {
                 />
               </div>
 
-              <div className="flex form-group mb-3 items-center justify-center bg-yellow-300">
+              <div className="flex form-group mb-3 items-center justify-center">
                 <label>Department :</label> 
                 <input
                   type="text"
@@ -152,7 +152,7 @@ function UserProfileSettings() {
                 />
               </div>
 
-              <div className="flex form-group mb-3 items-center justify-center bg-yellow-300">
+              <div className="flex form-group mb-3 items-center justify-center">
                 <label>Email :</label> 
                 <input
                   type="text"
