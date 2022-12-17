@@ -24,6 +24,7 @@ import { useEffect } from "react";
 import Attendance from "./components/User/Attendance";
 import LeaveTrackerEmp from "./components/User/LeaveTracker";
 import LeaveDetails from "./components/User/LeaveDetails";
+import UserProfileSettings from "./components/User/UserProfileSettings";
 
 
 
@@ -64,6 +65,7 @@ function App() {
             <Route exact path="/emp/leave-all" element={ <LeaveDetails/> }  />
             <Route exact path="/emp/leave-tracker-emp" element={<LeaveTrackerEmp/>} />
             <Route exact path="/emp/attendance-emp" element={<Attendance />} />
+            <Route exact path="/emp/profile-emp" element={<UserProfileSettings/>} />
 
           </Route>
         {/* } */}
