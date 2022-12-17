@@ -8,9 +8,9 @@ function UserProfileSettings() {
     <>
       <div className="m-auto  md:px-40 ">
         <form onSubmit={onFormSubmit}>
-          <div className="block p-5 rounded-lg shadow-lg bg-white max-w-xl m-auto content-center text-center">
+          <div className="mx-4 grad-color block p-5 rounded-lg shadow-lg max-w-xl md:m-auto content-center text-center">
 
-            <div className="bg-blue-300 mx-56 h-20 flex justify-center items-center text-center mb-3">
+            <div className="bg-blue-300 m-auto md:m-auto w-24 h-24 flex justify-center items-center text-center mb-3 rounded-full">
                 Hello
             </div>   
 
@@ -19,7 +19,7 @@ function UserProfileSettings() {
             </div>
 
               <div className="flex form-group mb-3 items-center justify-center">
-                <label>Date of Birth :</label> 
+                <label className="">Date of Birth</label> 
                 <input
                   type="text"
                   className="form-control block
@@ -44,7 +44,7 @@ function UserProfileSettings() {
               </div>
 
               <div className="flex form-group mb-3 items-center justify-center">
-                <label>Gender :</label> 
+                <label>Gender</label> 
                 <input
                   type="text"
                   className="form-control block
@@ -70,7 +70,7 @@ function UserProfileSettings() {
               </div>
 
               <div className="flex form-group mb-3 items-center justify-center">
-                <label>Address :</label> 
+                <label>Address</label> 
 
                <textarea
                   className="
@@ -101,7 +101,7 @@ function UserProfileSettings() {
               </div>
 
               <div className="flex form-group mb-3 items-center justify-center">
-                <label>Mobile No :</label> 
+                <label>Mobile No</label> 
                 <input
                   type="text"
                   className="form-control block
@@ -127,7 +127,7 @@ function UserProfileSettings() {
               </div>
 
               <div className="flex form-group mb-3 items-center justify-center">
-                <label>Department :</label> 
+                <label>Department</label> 
                 <input
                   type="text"
                   className="form-control block
@@ -153,7 +153,7 @@ function UserProfileSettings() {
               </div>
 
               <div className="flex form-group mb-3 items-center justify-center">
-                <label>Email :</label> 
+                <label>Email</label> 
                 <input
                   type="text"
                   className="form-control block
@@ -176,6 +176,35 @@ function UserProfileSettings() {
                   id="exampleInput7"
                   placeholder="Name"
                 />
+              </div>
+
+              
+              <div className="flex form-group mb-3 items-center justify-center">
+                <label>Profile</label> 
+
+                <input className="block w-2/3 mx-2 ml-12 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"></input>
+                {/* <input
+                  type="file"
+                  className="form-control block
+                    md:w-2/3
+                    w-2/3
+                    mx-2
+                    ml-12
+                    px-3
+                    py-1.5
+                    text-base
+                    font-normal
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput7"
+                  placeholder="Name"
+                /> */}
               </div>
       
               <button

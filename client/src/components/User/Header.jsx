@@ -44,10 +44,10 @@ function Header({ toggleNav }) {
           </svg>
         </button>
 
-        <div class="container flex items-center justify-end mx-auto">
+        <div class="container flex items-center md:justify-end mx-auto">
 
           {/* User Profile Dropdown */}
-        <div class="flex items-center">
+        <div class="flex items-center ml-28">
           <button
             onClick={()=>toggleProfileHS()}
             type="button"
@@ -58,11 +58,11 @@ function Header({ toggleNav }) {
             data-dropdown-placement="bottom"
           >
             <span className="sr-only">Open user menu</span>
-            <img className="w-12 h-8 rounded-full" src="/img/profile-default.png" alt="user photo" />
+            <img className="w-28 h-4 md:w-12 md:h-8 rounded-full" src="/img/profile-default.png" alt="user photo" />
           </button>
 
           <div
-            className={"absolute top-14 right-16 z-50 block my-4 text-base list-none divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 bg-yellow-300 " + (profileHS ? " block" : "hidden")}
+            className={"absolute top-16 md:top-14 right-18 z-50 block my-4 text-base list-none divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 bg-yellow-300 " + (profileHS ? " block" : "hidden")}
             id="user-dropdown"
           >
             <div className="px-4 py-3">
@@ -83,22 +83,6 @@ function Header({ toggleNav }) {
                   Profile Settings
                 </NavLink>
               </li>
-               {/* <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Dashboard
-                </a>
-              </li> */}
-              {/* <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Sign out
-                </a>
-              </li> */}
             </ul>
           </div>
         </div>
@@ -106,12 +90,12 @@ function Header({ toggleNav }) {
 
 
         {/* Logout Button */}
-          <div class=" w-full md:block md:w-auto" id="navbar-dropdown">
-            <ul class="flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+          <div className="w-full md:block md:w-auto" id="navbar-dropdown">
+            <ul className="flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
               <li>
                 <button
                   type="button"
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   onClick={handleLogout}
                 >
                   Logout
