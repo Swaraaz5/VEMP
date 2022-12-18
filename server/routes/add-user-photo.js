@@ -65,7 +65,7 @@ router.get("/finduserwithphoto/:id", async (req, res) => {
 
 const storage=multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null,'images');
+        cb(null,'D:/Veloce Projects/AuthInMern-Authentication-In-MERN/AuthInMern-Authentication-In-MERN/client/public/profiles');
     },
     filename:function(req,file,cb){
         cb(null,uuidv4()+'-'+Date.now()+path.extname(file.originalname));

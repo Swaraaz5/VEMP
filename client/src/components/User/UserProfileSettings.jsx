@@ -3,9 +3,7 @@ import axios from "axios";
 import ls from "localstorage-slim";
 import moment from "moment";
 
-
-
-const profileimgpath="D:/Veloce Projects/AuthInMern-Authentication-In-MERN/AuthInMern-Authentication-In-MERN/server/images/";
+const profileimgpath = "/profiles/";
 
 function UserProfileSettings() {
   const id = ls.get("empID");
@@ -13,7 +11,7 @@ function UserProfileSettings() {
   //State For Reading Employee Data
   const [empDataWithPhoto, setEmpDataWithPhoto] = useState([]);
 
-  const [empPhoto,setEmpPhoto]=useState([]);
+  const [empPhoto, setEmpPhoto] = useState([]);
 
   const [empDetails, setEmpDetails] = useState({
     userid: ls.get("empID"),
@@ -25,7 +23,7 @@ function UserProfileSettings() {
       .get(`http://localhost:8080/api/adduserphoto/finduserwithphoto/${id}`)
       .then((res) => {
         setEmpDataWithPhoto(res.data[0].empdetails);
-        setEmpPhoto(res.data[0])
+        setEmpPhoto(res.data[0]);
       });
   }, []);
 
@@ -62,14 +60,18 @@ function UserProfileSettings() {
         <form onSubmit={onFormSubmit} encType="multipart/form-data">
           <div className="mx-4 grad-color block p-5 rounded-lg shadow-lg max-w-xl md:m-auto content-center text-center">
             <div className="bg-blue-300 m-auto md:m-auto w-24 h-24 flex justify-center items-center text-center mb-3 rounded-full">
-              <img src="" alt="Employee Photo" />
+              <img
+                className="rounded-full w-24 h-24"
+                src={profileimgpath + empPhoto.photo}
+                alt="Employee Photo"
+              />
             </div>
 
             <div className="flex justify-center items-center text-center mb-3">
               <p className="text-2xl">
                 {" "}
-                {profileimgpath+empPhoto.photo}
-                {/* {empDataWithPhoto.firstname} {empDataWithPhoto.lastname}{" "} */}
+                {/* {profileimgpath+empPhoto.photo} */}
+                {empDataWithPhoto.firstname} {empDataWithPhoto.lastname}{" "}
               </p>
             </div>
 
