@@ -61,7 +61,6 @@ router.get("/leaveall", async (req, res) => {
         },
       },
     ]);
-    // console.log("Leave Data => ", leavedata);
     res.status(201).json(leavedata);
   } catch (error) {
     res.status(500).send({ message: error.message });

@@ -3,6 +3,64 @@ const multer = require('multer')
 const {v4:uuidv4}=require('uuid');
 const path=require('path');
 const { EmpPhoto } = require("../models/add-user-photo");
+// const { Emp, validate } = require("../models/add-user");
+
+router.get("/finduserwithphoto/:id", async (req, res) => {
+	try {
+
+        var useridpar=req.params.id
+        const leavedata = await EmpPhoto.aggregate([
+            {
+              $lookup: {
+                from: "empdetails",
+                let: { pid: "$userid" },
+                pipeline: [
+                  {
+                    $match: {
+                      $expr: {
+                        $eq: ["$_id", { $toObjectId: "$$pid" }],
+                      },
+                    },
+                  },
+                ],
+                as: "empdetails",
+              },
+            },
+            
+            {
+                $match: {
+                  $or: [
+                    {
+                      userid: {
+                        $eq: useridpar
+                      }
+                    },
+                  ]
+                }
+              },
+
+            {
+              $set: {
+                empdetails: {
+                  $arrayElemAt: ["$empdetails", 0],
+                },
+              },
+            },
+          ]);
+          res.status(201).json(leavedata);
+	} catch (error) {
+		res.status(404).json({message:error.message});
+	}
+});
+
+// router.get("/finduserwithphoto/:id", async (req, res) => {
+// 	try {
+// 		const employee=await Emp.findOne({_id:req.params.id});
+// 		res.status(200).json(employee);
+// 	} catch (error) {
+// 		res.status(404).json({message:error.message});
+// 	}
+// });
 
 
 const storage=multer.diskStorage({

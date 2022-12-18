@@ -58,6 +58,18 @@ router.get("/finduser/:id", async (req, res) => {
 });
 
 
+// router.get("/finduserwithphoto/:id", async (req, res) => {
+// 	try {
+// 		const employee=await Emp.findOne({_id:req.params.id});
+// 		res.status(200).json(employee);
+// 	} catch (error) {
+// 		res.status(404).json({message:error.message});
+// 	}
+// });
+
+
+
+
 router.post("/edituser/:id", async (req, res) => {
 	let employee=req.body;
 	try {

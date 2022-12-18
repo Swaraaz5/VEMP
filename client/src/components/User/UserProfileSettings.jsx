@@ -1,48 +1,60 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ls from "localstorage-slim";
-import moment from "moment"
+import moment from "moment";
+
+
+
+const profileimgpath="D:/Veloce Projects/AuthInMern-Authentication-In-MERN/AuthInMern-Authentication-In-MERN/server/images/";
 
 function UserProfileSettings() {
   const id = ls.get("empID");
 
   //State For Reading Employee Data
+  const [empDataWithPhoto, setEmpDataWithPhoto] = useState([]);
+
+  const [empPhoto,setEmpPhoto]=useState([]);
+
   const [empDetails, setEmpDetails] = useState({
-    userid:ls.get("empID"),
-    photo:'',
+    userid: ls.get("empID"),
+    photo: "",
   });
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/adduser/finduser/${id}`)
+      .get(`http://localhost:8080/api/adduserphoto/finduserwithphoto/${id}`)
       .then((res) => {
-        setEmpDetails(res.data);
+        setEmpDataWithPhoto(res.data[0].empdetails);
+        setEmpPhoto(res.data[0])
       });
   }, []);
 
   //Setting up input data
-  const handlePhoto=(e)=>{
-    setEmpDetails({...empDetails,id:ls.get('empID'),photo:e.target.files[0]});
-    console.log(empDetails.photo);
-  }
+  const handlePhoto = (e) => {
+    setEmpDetails({
+      ...empDetails,
+      id: ls.get("empID"),
+      photo: e.target.files[0],
+    });
+    // console.log(empDetails.photo);
+  };
 
   const onFormSubmit = (e) => {
     e.preventDefault();
 
-    const formData=new FormData();
+    const formData = new FormData();
 
-    formData.append('userid',ls.get("empID"))
-    formData.append('photo',empDetails.photo)
+    formData.append("userid", ls.get("empID"));
+    formData.append("photo", empDetails.photo);
 
-    console.log('After Form submit data user ID =>',empDetails.userid);
-    console.log('After Form submit data photo =>',empDetails.photo);
+    console.log("After Form submit data user ID =>", empDetails.userid);
+    console.log("After Form submit data photo =>", empDetails.photo);
 
-    axios.post('http://localhost:8080/api/adduserphoto',formData)
-    .then((res)=>{
+    axios
+      .post("http://localhost:8080/api/adduserphoto", formData)
+      .then((res) => {
         window.location.reload();
-    })
-
-
+      });
   };
   return (
     <>
@@ -50,13 +62,14 @@ function UserProfileSettings() {
         <form onSubmit={onFormSubmit} encType="multipart/form-data">
           <div className="mx-4 grad-color block p-5 rounded-lg shadow-lg max-w-xl md:m-auto content-center text-center">
             <div className="bg-blue-300 m-auto md:m-auto w-24 h-24 flex justify-center items-center text-center mb-3 rounded-full">
-              Hello
+              <img src="" alt="Employee Photo" />
             </div>
 
             <div className="flex justify-center items-center text-center mb-3">
               <p className="text-2xl">
                 {" "}
-                {empDetails.firstname} {empDetails.lastname}{" "}
+                {profileimgpath+empPhoto.photo}
+                {/* {empDataWithPhoto.firstname} {empDataWithPhoto.lastname}{" "} */}
               </p>
             </div>
 
@@ -64,7 +77,7 @@ function UserProfileSettings() {
               <label className="">Date of Birth</label>
               <input
                 type="text"
-                value={moment(empDetails.dob).format("DD/MM/YYYY")}
+                value={moment(empDataWithPhoto.dob).format("DD/MM/YYYY")}
                 disabled
                 className="form-control block
                     md:w-2/3
@@ -91,7 +104,7 @@ function UserProfileSettings() {
               <label>Gender</label>
               <input
                 type="text"
-                value={empDetails.gender}
+                value={empDataWithPhoto.gender}
                 disabled
                 className="form-control block
                   ml-11
@@ -120,7 +133,7 @@ function UserProfileSettings() {
               <label>Address</label>
 
               <textarea
-                value={empDetails.address}
+                value={empDataWithPhoto.address}
                 disabled
                 className="
                     form-control
@@ -153,7 +166,7 @@ function UserProfileSettings() {
               <label>Mobile No</label>
               <input
                 type="text"
-                value={empDetails.mobile}
+                value={empDataWithPhoto.mobile}
                 disabled
                 className="form-control block
                     md:w-2/3
@@ -181,7 +194,7 @@ function UserProfileSettings() {
               <label>Department</label>
               <input
                 type="text"
-                value={empDetails.department}
+                value={empDataWithPhoto.department}
                 disabled
                 className="form-control block
                   capitalize
@@ -210,7 +223,7 @@ function UserProfileSettings() {
               <label>Email</label>
               <input
                 type="text"
-                value={empDetails.email}
+                value={empDataWithPhoto.email}
                 disabled
                 className="form-control block
                     md:w-2/3
@@ -245,7 +258,6 @@ function UserProfileSettings() {
                 name="photo"
                 onChange={handlePhoto}
               ></input>
-
             </div>
 
             <button
