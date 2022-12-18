@@ -2,6 +2,7 @@
 
 /client/node_modules/moment
 
+/client/public/profiles
 
 /server/node_modules
 /server/.env

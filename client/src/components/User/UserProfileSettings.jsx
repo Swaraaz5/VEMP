@@ -23,7 +23,7 @@ function UserProfileSettings() {
       .get(`http://localhost:8080/api/adduserphoto/finduserwithphoto/${id}`)
       .then((res) => {
         setEmpDataWithPhoto(res.data[0].empdetails);
-        setEmpPhoto(res.data[0]);
+        setEmpPhoto(res.data[res.data.length-1]);
       });
   }, []);
 
