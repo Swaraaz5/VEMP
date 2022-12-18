@@ -10,6 +10,7 @@ const empAttendance=require("./routes/emp-attendance");
 
 const empAuthRoutes = require("./routes/auth-user");
 const empLeave = require("./routes/leave")
+const empPhoto = require("./routes/add-user-photo")
 
 
 
@@ -49,6 +50,7 @@ app.use("/api/authuser", empAuthRoutes);
 //Employee Routes
 app.use("/api/attendance",empAttendance)
 app.use("/api/leave",empLeave)
+app.use("/api/adduserphoto",empPhoto)
 
 const port = process.env.PORT || 8080;
 app.listen(port, console.log(`Listening on port ${port}...`));
