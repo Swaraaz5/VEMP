@@ -10,7 +10,7 @@ router.get("/read/:id",async(req,res)=>{
       {} //This send data in JSON Format
       ).sort({Date:-1});
       
-      console.log("Data data data astdadasd "+attendance);
+      // console.log("Data data data astdadasd "+attendance);
     res.status(201).json(attendance)
   } catch (error) {
     res.status(500).send({message:error.message})
