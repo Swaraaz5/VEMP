@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ls from "localstorage-slim";
-import moment from "moment";
+import moment from "moment"
 
 function UserProfileSettings() {
   const id = ls.get("empID");
 
   //State For Reading Employee Data
-  const [empDetails, setEmpDetails] = useState({});
+  const [empDetails, setEmpDetails] = useState({
+    id:ls.get("empID"),
+    photo:'',
+  });
 
   useEffect(() => {
     axios
@@ -18,17 +21,33 @@ function UserProfileSettings() {
   }, []);
 
   //Setting up input data
-  const onInputChange=()=>{
-    
+  const handlePhoto=(e)=>{
+    setEmpDetails({...empDetails,id:ls.get('empID'),photo:e.target.files[0]});
+    console.log(empDetails.photo);
   }
 
-  const onFormSubmit = () => {
-    alert("Why did you submitted the form?");
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+
+    const formData=new FormData();
+
+    formData.append('userid',empDetails.id)
+    formData.append('photo',empDetails.photo)
+
+    console.log('After Form submit data user ID =>',empDetails.id);
+    console.log('After Form submit data photo =>',empDetails.photo);
+
+    axios.post('http://localhost:8080/api/adduserphoto',formData)
+    .then((res)=>{
+      
+    })
+
+
   };
   return (
     <>
       <div className="m-auto  md:px-40 ">
-        <form onSubmit={onFormSubmit}>
+        <form onSubmit={onFormSubmit} encType='multipart/form-data'>
           <div className="mx-4 grad-color block p-5 rounded-lg shadow-lg max-w-xl md:m-auto content-center text-center">
             <div className="bg-blue-300 m-auto md:m-auto w-24 h-24 flex justify-center items-center text-center mb-3 rounded-full">
               Hello
@@ -222,7 +241,8 @@ function UserProfileSettings() {
                 className="block w-2/3 mx-2 ml-12 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 id="file_input"
                 type="file"
-                onChange={onInputChange}
+                onChange={handlePhoto}
+                accept=".png .jpg .jpeg"
               ></input>
 
             </div>
