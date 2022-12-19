@@ -20,7 +20,8 @@ const UserSignUp = () => {
       const url = "http://localhost:8080/api/authuser";
       const { data: res } = await axios.post(url, data)
       .then((res) => {
-        Cookie.set('EmpData','EMployeeAccess')
+        // Cookie.set('EmpData','EMployeeAccess')
+        Cookie.set('EmpData',res.data._id)
         
         if(res.data.role==='employee')
         {
