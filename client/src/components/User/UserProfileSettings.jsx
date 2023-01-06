@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ls from "localstorage-slim";
 import moment from "moment";
+import Webcam from "react-webcam";
+import { useRef } from "react";
 
 const profileimgpath = "/profiles/";
 
 function UserProfileSettings() {
+
+  const webRef=useRef(null);
+
   const id = ls.get("empID");
 
   //State For Reading Employee Data
@@ -54,6 +59,17 @@ function UserProfileSettings() {
         window.location.reload();
       });
   };
+
+
+  // const openCam=()=>{
+  //   alert('click click clcik')
+  //   let All_mediaDevices=navigator.mediaDevices
+  //   if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
+  //      console.log("getUserMedia() not supported.");
+  //      return;
+  //   }
+  // }
+
   return (
     <>
       <div className="m-auto  md:px-40 ">
@@ -65,6 +81,8 @@ function UserProfileSettings() {
                 src={profileimgpath + empPhoto.photo}
                 alt="Employee Photo"
               />
+               {/* <button id="startBtn" onclick={openCam}>Open Webcam</button> */}
+               <Webcam ref={webRef} />
             </div>
 
             <div className="flex justify-center items-center text-center mb-3">
